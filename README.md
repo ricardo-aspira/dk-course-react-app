@@ -31,9 +31,7 @@ The restart policy is applied per service/container. The ones avaiable are:
 |---|---|---|
 |"no"|Never attempt to restart if container stops or crashes.|Has to be specified with quotes as 'no' because no is interpreted as boolean FALSE|
 |always|For any reason, attemp to restart||
-|on-failure|Only restarts if container stops with an error code|If 0 is passed, it will not be restart cause 0 is fine:
-*  0 - exited and everything is OK
-*  1, 2, 3 etc - exited because something went wrong|
+|on-failure|Only restarts if container stops with an error code|If 0 is passed, it will not be restart cause 0 is fine: <ul><li>0 - exited and everything is OK</li><li>1, 2, 3 etc - exited because something went wrong</li></ul>|
 |unless-stopped|Restart unless we forcibly stop it.||
 
 # web / build . -> will look for the Dockerfile to run the build,
