@@ -86,3 +86,6 @@ The default command of nginx image is to start the nginx, so no need for that pu
 Create your account on [Travis CI](https://travis-ci.org) and after that, link to your GitHub account.
 
 After making this link, turn on the integration with the repository you needed. The repository shoulf be a public one.
+
+## Config file
+After the link between your Travis Account and GitHub repository, you need the specify a config file for Travis, **.travis.yml**.
