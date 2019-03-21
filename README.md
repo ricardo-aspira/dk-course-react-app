@@ -47,9 +47,11 @@ On `web` service, the `build` step could specify a `.` as its value but it would
 
 ```yml
 ...
-    build: 
-      context: .
-      dockerfile: Dockerfile.dev
+    services: 
+        web:
+            build: 
+                context: .
+                dockerfile: Dockerfile.dev
 ...
 ```
 
