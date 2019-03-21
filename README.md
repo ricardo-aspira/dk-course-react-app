@@ -26,6 +26,7 @@ Despite that, we need to keep in mind that we are using docker-compose but for s
 
 ## docker-compose policies
 The restart policy is applied per service/container. The ones avaiable are:
+
 | Policy | Definition | Additional comments |
 |---|---|---|
 |"no"|Never attempt to restart if container stops or crashes.|Has to be specified with quotes as 'no' because no is interpreted as boolean FALSE|
