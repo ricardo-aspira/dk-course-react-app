@@ -1,68 +1,87 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# The Dockerfiles
 
-## Available Scripts
+# Dockerfile.dev
+docker-cli always look for a Dockerfile by default but we can specify a file using **-f** parameter.
 
-In the project directory, you can run:
+The Dockerfile.dev will be used to run the stack:
 
-### `npm start`
+*  npm run start
+*  npm run test
+*  npm run build
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+# Tips & Comments on docker-cli and docker-compose commands
+## docker attach
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+This command attaches to the primary process `stdin`, `stdout` and `stderr`.
 
-### `npm test`
+## docker run -it <CONTAINER_ID> npm run test
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+This command runs the test phase, replace the default command, and attach our terminal to the container (`stdin`, `stdout` and `stderr`.), allowing us to interac with the test suite.
 
-### `npm run build`
+Keep in mind that running the `npm run test` as a container does not allow us to interact with the test suite because when you run `docker attach` or `docker run -it <CONTAINER_ID> sh`, we are attaching our terminal to the main process that is `npm` and not the test suite that is a subprocess of `npm`.
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## docker-compose and volume mapping
+The command `COPY ./ ./` inside the **Dockerfile.dev** could be ommited because the docker-compose.yml is mapping the pwd/current folder into the container, so no need for copying instruction.
+Despite that, we need to keep in mind that we are using docker-compose but for some reason, but we could stop to use that or alternatively we might decide to use this docker file for production, so in either case you would definitely still need to have this copy instruction right here. Even it is not needed for dev env, keep it as a reminder.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+## docker-compose policies
+The restart policy is applied per service/container. The ones avaiable are:
+| Policy | Definition | Additional comments |
+|---|---|---|
+|"no"|Never attempt to restart if container stops or crashes.|Has to be specified with quotes as 'no' because no is interpreted as boolean FALSE|
+|always|For any reason, attemp to restart||
+|on-failure|Only restarts if container stops with an error code|If 0 is passed, it will not be restart cause 0 is fine:
+*  0 - exited and everything is OK
+*  1, 2, 3 etc - exited because something went wrong|
+|unless-stopped|Restart unless we forcibly stop it.||
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# web / build . -> will look for the Dockerfile to run the build,
+# but since we do not have the Dockerfile, we have the Dockerfile.dev
+# we need to replace "build: ." with the sintax below
 
-### `npm run eject`
+## Some 
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+# docker-compose build = docker build .
+#    The one only builds the images, does not start the container.
+# docker-compose up -d = docker run -d myimage
+#    This one builds the images if the images do not exist and starts the containers.
+#    If the Dockerfile is changed, the images are NOT reconstructured.
+# docker-compose up --build = docker build . & docker run myimage
+#    This one forces the build even when not needed.
+# docker-compose up --no-build
+#    This one skips the image build process
+# docker-compose down = docker stop and remove all containers created
+# docker-compose stop = docker stop services
+# docker-compose ps ~= docker ps
+#    For the docker-compose.yml in the folder where the file exists
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# restart policies per service/container
+# "no" - never attempt to restart if container stops or crashes
+#        has to be specified with quotes as 'no' because no is interpreted as boolean FALSE
+# always - for any reason, attemp to restart
+# on-failure - only restart if container stops with an error code
+#              if 0 is passed, it will not be restart cause 0 is fine
+#              0 - exited and everything is OK
+#              1, 2, 3 etc - exited because something went wrong
+# unless-stopped - restart unless we forcibly stop it
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+# In the volumes, when you do not specify the :, you are putting a bookmark and saying
+# to do not replace that volume inside the container.
+# The .:/app says to replace the current directory into /app directory inside the container.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+# We could to execute the tests not as a service/container and in fact with 
+# "docker exec -it <CONTAINER_ID> npm run test" so in that way, we could manipulate the
+# test suite because we would attach our terminal to the test suite.
+# As a service, we cannot attach to that process because npm is the default command,
+# so the npm starts other process to run the test and the "docker attach <CONTAINER_ID>""
+# would be able to attach the terminal to npm process only, not to the test suite
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+# Using Multi-Step Docker Builds
+Any single block can have only one FROM statement.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+## nginx on Dockerfile - Second Phase
 
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+The default command of nginx image is to start the nginx, so no need for that putting a `CMD`.

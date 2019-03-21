@@ -1,5 +1,3 @@
-# docker attach - attaches to the primary process stdin, stdout stderr
-
 # For running locally, in development mode
 FROM node:10.15-alpine
 
@@ -8,15 +6,6 @@ WORKDIR '/app'
 COPY package.json ./
 RUN npm install
 
-# docker-compose file maps the current folder (project) into the container, so it would not be need the COPY instruction below
-# We are using docker-compose, but for some reason, we could stop to use that or alternatively we might decide to use this docker
-# file for production, so in either case you would definitely still neet to have this copy instruction right here.
-# Even if it is not need, keep it as a reminder for the future.
 COPY ./ ./
 
 CMD ["npm", "run", "start"]
-
-# With the below command line, we run the docker container with terminal
-# interaction attached to it and replacing the DEFAULT command from 
-# "npm run start" to "npm run test"
-# docker run -it <CONTAINER_ID> npm run test
