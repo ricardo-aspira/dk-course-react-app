@@ -47,11 +47,11 @@ On `web` service, the `build` step could specify a `.` as its value but it would
 
 ```yml
 ...
-    services: 
-        web:
-            build: 
-                context: .
-                dockerfile: Dockerfile.dev
+services: 
+    web:
+        build: 
+            context: .
+            dockerfile: Dockerfile.dev
 ...
 ```
 
@@ -73,3 +73,10 @@ Any single block can have only one FROM statement.
 ## nginx on Dockerfile - Second Phase
 
 The default command of nginx image is to start the nginx, so no need for that putting a `CMD`.
+
+# Travis-CI
+
+## Account and Link
+Create your account on [Travis CI](https://travis-ci.org) and after that, link to your GitHub account.
+
+After making this link, turn on the integration with the repository you needed. The repository shoulf be a public one.
