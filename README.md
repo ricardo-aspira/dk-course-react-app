@@ -3,11 +3,17 @@
 # Dockerfile.dev
 docker-cli always look for a Dockerfile by default but we can specify a file using **-f** parameter.
 
-The Dockerfile.dev will be used to run the stack:
+The **Dockerfile.dev** will be used to run the stack:
 
 *  npm run start
 *  npm run test
 *  npm run build
+
+# Dockerfile
+
+The **Dockerfile** will be used for production only and uses Multi-Step Docker Builds. Firstly it gets the node-alpine image, install the dependencies and run the build on the second phase. The s
+
+The final result will be only the nginx with the build done by the previous step. The node_modules and src will not be copied.
 
 # Tips & Comments on docker-cli and docker-compose commands
 ## docker attach
