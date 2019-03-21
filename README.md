@@ -41,9 +41,17 @@ The restart policy is applied per service/container. The ones avaiable are:
 |on-failure|Only restarts if container stops with an error code|If 0 is passed, it will not be restart cause 0 is fine: <ul><li>0 - exited and everything is OK</li><li>1, 2, 3 etc - exited because something went wrong</li></ul>|
 |unless-stopped|Restart unless we forcibly stop it.||
 
-# web / build . -> will look for the Dockerfile to run the build,
-# but since we do not have the Dockerfile, we have the Dockerfile.dev
-# we need to replace "build: ." with the sintax below
+## docker-compose.yml definitions
+
+On `web` service, the `build` step could specify a `.` as its value but it would look for a file called **Dockerfile**. Since we want to execute that with the **Dockerfile.dev** file, we need to replace the `build: .` per a complex object where we specify the context and the file name.
+
+```yml
+...
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev
+...
+```
 
 ## Some docker-compose and docker comparisions
 
