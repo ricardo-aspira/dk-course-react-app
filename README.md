@@ -91,3 +91,9 @@ After making this link, turn on the integration with the repository you needed. 
 
 ## Config file
 After the link between your Travis Account and GitHub repository, you need the specify a config file for Travis, **.travis.yml**.
+
+# AWS Elastic Beanstalk
+
+We setup an automatic deploy over AWS (it could be Azure, Digital Ocean etc).
+
+**AWS Elastic Beanstalk** is easiest way to get started with production docker instances. Is most appropriate when you are running exactly one container at a time. We can stat up multiple copies of the same container but at the end of the day, is the easiest way to run one single container.
