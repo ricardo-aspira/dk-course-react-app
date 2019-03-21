@@ -1,0 +1,13 @@
+sudo: required
+services:
+  - docker
+
+# Commands run before the tests
+before_install:
+  - docker build -t ricardosouzamorais/dk-course-react-app -f Dockerfile.dev .
+
+# It always expects that the tests run and terminates, not keep the terminal opened.
+# That is different on "npm run test" because it hangs.
+# To solve that, we need to exit with "-- --coverage"
+script:
+    - docker run ricardosouzamorais/dk-course-react-app npm run test -- --coverage
