@@ -1,3 +1,5 @@
+This project contains the code used to exercise the concepts learned at the ]Docker and Kubernetes: The Complete Guide](https://www.udemy.com/docker-and-kubernetes-the-complete-guide/learn/v4/content).
+
 # The Dockerfiles
 
 # Dockerfile.dev
