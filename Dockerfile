@@ -13,7 +13,7 @@ RUN npm run build
 # The final result will be only the nginx with the build done by the previous step.
 # The node_modules and src will not be copied.
 FROM nginx
-COPY --from=builder /app/build usr/share/nginx/html
+COPY --from=builder /app/build /usr/share/nginx/html
 
 # The default command of nginx image is to start the nginx, so no need for that
 #CMD [""]
