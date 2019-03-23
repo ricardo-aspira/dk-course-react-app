@@ -107,3 +107,9 @@ We setup an automatic deploy over AWS (it could be Azure, Digital Ocean etc).
 **AWS Elastic Beanstalk** is easiest way to get started with production docker instances. Is most appropriate when you are running exactly one container at a time. We can start up multiple copies of the same container but at the end of the day, is the easiest way to run one single container.
 
 Automatically scales for us when needs more resources.
+
+The exposition of ports are different. We need to put the `EXPOSE` sintax inside the **Dockerfile**.
+In most environments the `EXPOSE` is really supposed to be communication between developers to let them know that this container is supposed to need a port mapping on port that is configured on `EXPOSE`.
+By the default, on our machines, it does not anything for us automatically.
+
+For Elastic Beanstalk, it is different, it will look for `EXPOSE` and map them, automatically.

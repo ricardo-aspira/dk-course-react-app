@@ -23,4 +23,6 @@ deploy:
     # only when code is sent to master 
     branch: master
   access_key_id: $AWS_ACCESS_KEY
-  secret_access_key: $AWS_SECRET_KEY
+  secret_access_key:
+    # Have to be wrapped in double quotes
+    secure: "$AWS_SECRET_KEY"
