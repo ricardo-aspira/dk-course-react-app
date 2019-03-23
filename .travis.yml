@@ -10,4 +10,17 @@ before_install:
 # That is different on "npm run test" because it hangs.
 # To solve that, we need to exit with "-- --coverage"
 script:
-    - docker run ricardosouzamorais/dk-course-react-app npm run test -- --coverage
+  - docker run ricardosouzamorais/dk-course-react-app npm run test -- --coverage
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-1"
+  app: "dk-course-react-app-aspira"
+  environment-name: "DkCourseReactAppAspira-env"
+  bucket_name: "elasticbeanstalk-us-east-1-629415030931"
+  bucket_path: "dk-course-react-app-aspira"
+  on:
+    # only when code is sent to master 
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY

@@ -92,8 +92,18 @@ After making this link, turn on the integration with the repository you needed. 
 ## Config file
 After the link between your Travis Account and GitHub repository, you need the specify a config file for Travis, **.travis.yml**.
 
+## Deploy
+Travis-CI comes pre-configured to deploy your application to a handfull of different providers (Azuze, AWS, Digital Ocean etc).
+
+*  elasticbeanstalk - provider for AWS Elastic Beanstalk
+
+A S3 bucket is created automatically when you setup your application and environment on AWS console.
+This S3 bucket is reused for all different elastic beanstalk environments you have created. When creating the environment, it is not common to have the "bucket_path" (the folder that represents your application with app name).
+
 # AWS Elastic Beanstalk
 
 We setup an automatic deploy over AWS (it could be Azure, Digital Ocean etc).
 
-**AWS Elastic Beanstalk** is easiest way to get started with production docker instances. Is most appropriate when you are running exactly one container at a time. We can stat up multiple copies of the same container but at the end of the day, is the easiest way to run one single container.
+**AWS Elastic Beanstalk** is easiest way to get started with production docker instances. Is most appropriate when you are running exactly one container at a time. We can start up multiple copies of the same container but at the end of the day, is the easiest way to run one single container.
+
+Automatically scales for us when needs more resources.
