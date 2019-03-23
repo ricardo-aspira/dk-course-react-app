@@ -16,7 +16,7 @@ deploy:
   provider: elasticbeanstalk
   region: "us-east-1"
   app: "dk-course-react-app-aspira"
-  environment-name: "DkCourseReactAppAspira-env"
+  env: "DkCourseReactAppAspira-env"
   bucket_name: "elasticbeanstalk-us-east-1-629415030931"
   bucket_path: "dk-course-react-app-aspira"
   on:
