@@ -16,7 +16,7 @@ FROM nginx
 
 # In most envs, used as a communication between developers but for AWS Elastic Beanstalk,
 # it is used to map port automatically.
-#EXPOSE 80
+EXPOSE 80
 
 COPY --from=builder /app/build /usr/share/nginx/html
 
