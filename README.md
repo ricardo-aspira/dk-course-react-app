@@ -93,13 +93,24 @@ After making this link, turn on the integration with the repository you needed. 
 After the link between your Travis Account and GitHub repository, you need the specify a config file for Travis, **.travis.yml**.
 
 ## Deploy
-Travis-CI comes pre-configured to deploy your application to a handfull of different providers (Azuze, AWS, Digital Ocean etc).
+**Travis-CI** comes pre-configured to deploy your application to a handfull of different providers (Azuze, AWS, Digital Ocean etc).
 
 *  elasticbeanstalk - provider for AWS Elastic Beanstalk
 
 A S3 bucket is created automatically when you setup your application and environment on AWS console.
 This S3 bucket is reused for all different elastic beanstalk environments you have created. When creating the environment, it is not common to have the "bucket_path" (the folder that represents your application with app name).
 
+## Commiting on Branch
+
+Commiting on a branch and creating a merge request to master will drive us into a two checks dispatched by **Travis-CI**: 
+
+*  1st - The fact that we just pushed some code up to GitHub
+*  2nd - Kind of fate merging our code into the master branch and then running our tests
+
+So one set of tests right here was to say that the code was pushed by itself is valid and that was pushed merge to master is valid as well.
+
+After seeing both of them as succeeded, we can merge the pull request, and as soon as we merge this **Travis-CI** will run again our tests and then, after it because it is a change that was issued to the master branch, it is going to automatically attempt to deploy our application over to **Beanstalk**.
+ 
 # AWS Elastic Beanstalk
 
 We setup an automatic deploy over AWS (it could be Azure, Digital Ocean etc).
