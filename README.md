@@ -108,8 +108,25 @@ We setup an automatic deploy over AWS (it could be Azure, Digital Ocean etc).
 
 Automatically scales for us when needs more resources.
 
+## Port exposition
 The exposition of ports are different. We need to put the `EXPOSE` sintax inside the **Dockerfile**.
 In most environments the `EXPOSE` is really supposed to be communication between developers to let them know that this container is supposed to need a port mapping on port that is configured on `EXPOSE`.
 By the default, on our machines, it does not anything for us automatically.
 
 For Elastic Beanstalk, it is different, it will look for `EXPOSE` and map them, automatically.
+
+## Build Still Failing?
+
+Seção 7, aula 93
+If you still see a failed deployment, try the following two steps:
+
+Fix One:
+The `npm install` command frequently times out on the `t2.micro` instance that we are using.  An easy fix is to bump up the instance type that Elastic Beanstalk is using to a `t2.small`.
+Note that a `t2.small` is outside of the free tier, so you will pay a tiny bit of money (likely less than one dollar if you leave it running for a few hours) for this instance.  Don't forget to close it down!  Directions for this are a few videos ahead in the lecture titled **Environment Cleanup**.
+
+Fix Two:
+Try editing the 'COPY' line of your Dockerfile like so:
+
+`COPY package*.json ./`
+
+Sometimes AWS has a tough time with the `'.'` folder designation and prefers the long form `./`.
