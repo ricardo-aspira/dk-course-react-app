@@ -109,7 +109,7 @@ Commiting on a branch and creating a merge request to master will drive us into 
 
 So one set of tests right here was to say that the code was pushed by itself is valid and that was pushed merge to master is valid as well.
 
-After seeing both of them as succeeded, we can merge the pull request, and as soon as we merge this **Travis-CI** will run again our tests and then, after it because it is a change that was issued to the master branch, it is going to automatically attempt to deploy our application over to **Beanstalk**.
+After seeing both of them as succeeded, we can merge the pull request, and as soon as we merge this **Travis-CI** will run again our tests, for the 3rd time (1st for feature branch, 2nd for pull request and 3rd for master), and then, after it because it is a change that was issued to the master branch, it is going to automatically attempt to deploy our application over to **Beanstalk**.
  
 # AWS Elastic Beanstalk
 
