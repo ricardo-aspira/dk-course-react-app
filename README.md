@@ -24,7 +24,7 @@ This command attaches to the primary process `stdin`, `stdout` and `stderr`.
 
 ## docker run -it <CONTAINER_ID> npm run test
 
-This command runs the test phase, replace the default command, and attach our terminal to the container (`stdin`, `stdout` and `stderr`.), allowing us to interac with the test suite.
+This command runs the test phase, replace the default command, and attach our terminal to the container (`stdin`, `stdout` and `stderr`.), allowing us to interact with the test suite.
 
 Keep in mind that running the `npm run test` as a service/container does not allow us to interact with the test suite because when you run `docker attach` or `docker run -it <CONTAINER_ID> sh`, we are attaching our terminal to the main process that is `npm` and not the test suite that is a subprocess of `npm`.
 
