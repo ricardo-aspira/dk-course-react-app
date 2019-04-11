@@ -17,7 +17,7 @@ deploy:
   region: "us-east-1"
   app: "dk-course-react-app-aspira"
   env: "DkCourseReactAppAspira-env"
-  # bucket and folder are created automatically
+  # zip files from github and send it to s3; bucket and folder are created automatically
   bucket_name: "elasticbeanstalk-us-east-1-629415030931"
   bucket_path: "dk-course-react-app-aspira"
   on:
